@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Response, Depends
 
-from app.users.scemas import SUserAuth
+from app.users.scemas import SUserAuth, SUserReadMe
 from app.users.dao import UsersDAO
 from app.users.auth import get_password_hash, authenticate_user, create_access_token
 from app.users.dependencies import get_current_user
@@ -36,5 +36,5 @@ async def logaut_user(response: Response):
 
 
 @router_users.get("/me")
-async def read_users_me(current_user: Users = Depends(get_current_user)):
+async def read_users_me(current_user: Users = Depends(get_current_user)) -> SUserReadMe:
     return current_user
