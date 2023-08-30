@@ -4,7 +4,6 @@ from app.users.scemas import SUserAuth, SUserReadMe
 from app.users.dao import UsersDAO
 from app.users.auth import get_password_hash, authenticate_user, create_access_token
 from app.users.dependencies import get_current_user
-from app.users.models import Users
 from app.exceptions import UserAlreadyExistsException, CannotAddDataToDatabase
 
 router_auth = APIRouter(prefix="/auth", tags=["Аутентификация"])
@@ -36,5 +35,5 @@ async def logaut_user(response: Response):
 
 
 @router_users.get("/me")
-async def read_users_me(current_user: Users = Depends(get_current_user)) -> SUserReadMe:
+async def read_users_me(current_user=Depends(get_current_user)) -> SUserReadMe:
     return current_user
