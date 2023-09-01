@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Подтверждение бронирования</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #f8f8f8;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #336699;
+            text-align: center;
+        }
+
+        h2 {
+            color: #336699;
+        }
+
+        p {
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Подтверждение бронирования</h1>
+    <p>Здравствуйте,</p>
+    <p>Спасибо за ваше бронирование в отеле {{ data.hotel_name }}.</p>
+    <h2>Детали бронирования:</h2>
+    <p><strong>Электронный адрес пользователя:</strong> {{ data.email }}</p>
+    <p><strong>Дата заезда:</strong> {{ data.check_in_date }}</p>
+    <p><strong>Дата выезда:</strong> {{ data.check_out_date }}</p>
+    <p><strong>Тип номера:</strong> {{ data.room_type }}</p>
+    <p><strong>Цена:</strong> {{ data.price }}</p>
+    <p>Мы ожидаем ваш приезд и надеемся, что ваше пребывание будет приятным и комфортным.</p>
+    <p>С уважением, {{ data.hotel_name }}</p>
+</div>
+</body>
+</html>
