@@ -9,12 +9,14 @@ from app.bookings.router import router as router_bookings
 from app.users.router import router_auth
 from app.users.router import router_users
 from app.hotels.router import router as router_hotels
+from app.config import settings
 
 
 # Настройка lifespan приложения
 @asynccontextmanager
 async def lifespan(application: FastAPI):
-    redis = aioredis.from_url("redis://localhost:6379", encoding="utf8", decode_responses=True)
+    redis = aioredis.from_url(f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}", encoding="utf8",
+                              decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="cache")
     yield
 
