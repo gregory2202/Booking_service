@@ -5,6 +5,7 @@ from sqlalchemy import select, between, or_, insert
 from app.database import async_session_maker
 from app.dao.base import BaseDAO
 from app.bookings.models import Bookings
+from app.users.models import Users
 from app.hotels.rooms.models import Rooms
 from app.exceptions import RoomFullyBooked
 
@@ -28,7 +29,7 @@ class BookingDAO(BaseDAO):
             return bookings.mappings().all()
 
     @classmethod
-    async def add(cls, user_id: int, room_id: int, date_from: date, date_to: date):
+    async def add(cls, room_id: int, date_from: date, date_to: date, user: Users):
         """
         SELECT rooms.quantity
         FROM rooms
@@ -56,14 +57,11 @@ class BookingDAO(BaseDAO):
                 get_price = select(Rooms.price).where(Rooms.id == room_id)
                 price = await session.execute(get_price)
                 price = price.scalar()
-                add_booking = insert(Bookings).values(room_id=room_id, user_id=user_id, date_from=date_from,
-                                                      date_to=date_to, price=price).returning(Bookings.id,
-                                                                                              Bookings.user_id,
-                                                                                              Bookings.room_id,
-                                                                                              Bookings.date_from,
-                                                                                              Bookings.date_to)
+                add_booking = insert(Bookings).values(room_id=room_id, user_id=user.id, date_from=date_from,
+                                                      date_to=date_to, price=price).returning(Bookings)
+
                 new_booking = await session.execute(add_booking)
                 await session.commit()
-                return new_booking.mappings().first()
+                return new_booking.scalars().first()
             else:
                 raise RoomFullyBooked
