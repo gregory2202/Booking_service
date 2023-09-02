@@ -3,14 +3,15 @@ from datetime import date
 from sqlalchemy import select, between, or_, insert
 
 from app.database import async_session_maker
-from app.dao.base import BaseDAO
+from app.repository.base_repository import SQLAlchemyRepository
+from app.hotels.models import Hotels
+from app.hotels.rooms.models import Rooms
 from app.bookings.models import Bookings
 from app.users.models import Users
-from app.hotels.rooms.models import Rooms
 from app.exceptions import RoomFullyBooked
 
 
-class BookingDAO(BaseDAO):
+class BookingRepository(SQLAlchemyRepository):
     model = Bookings
 
     @classmethod
@@ -29,7 +30,7 @@ class BookingDAO(BaseDAO):
             return bookings.mappings().all()
 
     @classmethod
-    async def add(cls, room_id: int, date_from: date, date_to: date, user: Users):
+    async def add(cls, user_id: int, room_id: int, date_from: date, date_to: date):
         """
         SELECT rooms.quantity
         FROM rooms
@@ -57,7 +58,7 @@ class BookingDAO(BaseDAO):
                 get_price = select(Rooms.price).where(Rooms.id == room_id)
                 price = await session.execute(get_price)
                 price = price.scalar()
-                add_booking = insert(Bookings).values(room_id=room_id, user_id=user.id, date_from=date_from,
+                add_booking = insert(Bookings).values(room_id=room_id, user_id=user_id, date_from=date_from,
                                                       date_to=date_to, price=price).returning(Bookings)
 
                 new_booking = await session.execute(add_booking)
@@ -65,3 +66,21 @@ class BookingDAO(BaseDAO):
                 return new_booking.scalars().first()
             else:
                 raise RoomFullyBooked
+
+    @classmethod
+    async def find_data_for_mail(cls, booking: Bookings):
+        """
+        SELECT bookings.date_from, bookings.date_to, bookings.total_cost, users.email, hotels.name, rooms.name
+        FROM bookings
+                JOIN users ON bookings.user_id = users.id
+                JOIN rooms ON bookings.room_id = rooms.id
+                JOIN hotels ON rooms.hotel_id = hotels.id
+        WHERE bookings.id = [booking_id]
+        """
+
+        query = select(Bookings.date_from, Bookings.date_to, Bookings.total_cost, Users.email,
+                       Hotels.name.label("hotel_name"), Rooms.name.label("room_name")).where(Bookings.id == booking.id)
+
+        async with async_session_maker() as session:
+            data_for_email = await session.execute(query)
+        return data_for_email.mappings().first()
