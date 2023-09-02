@@ -11,7 +11,7 @@ from app.users.models import Users
 from app.exceptions import RoomFullyBooked
 
 
-class BookingRepository(SQLAlchemyRepository):
+class BookingsRepository(SQLAlchemyRepository):
     model = Bookings
 
     @classmethod
