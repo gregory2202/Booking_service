@@ -1,4 +1,4 @@
-from app.bookings.repository import BookingRepository
+from app.bookings.repository import BookingsRepository
 from app.bookings.schemas import SNewBooking
 from app.bookings.models import Bookings
 from app.users.models import Users
@@ -7,7 +7,7 @@ from app.tasks.tasks import send_email
 
 
 class BookingsServices:
-    def __init__(self, booking_repository: BookingRepository):
+    def __init__(self, booking_repository: BookingsRepository):
         self.bookings_repository = booking_repository
 
     async def get_bookings(self, user: Users):

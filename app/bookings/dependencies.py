@@ -3,4 +3,4 @@ from app.bookings.services import BookingsServices
 
 
 def get_bookings_services():
-    return BookingsServices(BookingsRepository())
+    return BookingsServices(BookingsRepository)
