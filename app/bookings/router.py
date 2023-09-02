@@ -1,29 +1,29 @@
-from datetime import date
-
 from fastapi import APIRouter, Depends
 
-from app.bookings.dao import BookingDAO
-from app.bookings.schemas import SBookingInfo
+from app.bookings.dependencies import booking_services
+from app.bookings.schemas import SBookingInfo, SNewBooking
+from app.bookings.services import BookingsServices
 from app.users.models import Users
 from app.users.dependencies import get_current_user
-from app.exceptions import RoomCannotBeBooked
 
 router = APIRouter(prefix="/bookinks", tags=["Бронирования"])
 
 
 @router.get("")
-async def get_bookings(user: Users = Depends(get_current_user)) -> list[SBookingInfo]:
-    return await BookingDAO.find_all_with_images(user_id=user.id)
+async def get_bookings(bookings_services: BookingsServices = Depends(booking_services),
+                       user: Users = Depends(get_current_user)) -> list[SBookingInfo]:
+    return await bookings_services.get_bookings(user)
 
 
 @router.post("")
-async def add_booking(room_id: int, date_from: date, date_to: date, user: Users = Depends(get_current_user)):
-    booking = await BookingDAO.add(room_id, date_from, date_to, user)
-    if not booking:
-        raise RoomCannotBeBooked
+async def add_booking(new_booking: SNewBooking, bookings_services: BookingsServices = Depends(booking_services),
+                      user: Users = Depends(get_current_user)):
+    booking = await bookings_services.add_booking(new_booking, user)
+    await bookings_services.send_booking_confirmation_email(booking)
     return booking
 
 
 @router.post("/{booking_id}")
-async def remove_booking(booking_id: int, user: Users = Depends(get_current_user)) -> None:
-    await BookingDAO.delete(id=booking_id, user_id=user.id)
+async def remove_booking(booking_id: int, bookings_services: BookingsServices = Depends(booking_services),
+                         user: Users = Depends(get_current_user)) -> None:
+    await bookings_services.remove_booking(booking_id, user)
