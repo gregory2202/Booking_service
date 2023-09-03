@@ -58,14 +58,14 @@ uvicorn app.main:app --reload
 Для запуска Celery используется команда
 
 ```
-celery --app=app.tasks.celery:celery worker -l INFO -P solo
+celery --app=app.tasks.celery_settings:app_celery worker -l INFO -P solo
 ```
 
 Обратите внимание, что `-P solo` используется только на Windows, так как у Celery есть проблемы с работой на Windows.  
 Для запуска Flower используется команда
 
 ```
-celery --app=app.tasks.celery:celery flower
+celery --app=app.tasks.celery_settings:app_celery flower
 ``` 
 
 ### Dockerfile
