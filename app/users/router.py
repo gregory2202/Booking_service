@@ -1,39 +1,31 @@
 from fastapi import APIRouter, Response, Depends
 
-from app.users.scemas import SUserAuth, SUserReadMe
-from app.users.dao import UsersDAO
-from app.users.auth import get_password_hash, authenticate_user, create_access_token
-from app.users.dependencies import get_current_user
-from app.exceptions import UserAlreadyExistsException, CannotAddDataToDatabase
+from app.users.schemas import SUserAuth, SUserReadMe
+
+from app.users.services import UsersServices, AuthServices
+from app.users.dependencies import get_current_user, get_users_services, get_auth_services
 
 router_auth = APIRouter(prefix="/auth", tags=["Аутентификация"])
 router_users = APIRouter(prefix="/users", tags=["Пользователи"])
 
 
 @router_auth.post("/register")
-async def register_user(user_data: SUserAuth):
-    existing_user = await UsersDAO.find_one_or_none(email=user_data.email)
-    if existing_user:
-        raise UserAlreadyExistsException
-    hashed_password = get_password_hash(user_data.password)
-    new_user = await UsersDAO.add(email=user_data.email, hashed_password=hashed_password)
-    if not new_user:
-        raise CannotAddDataToDatabase
+async def register_user(user_data: SUserAuth, auth_services: AuthServices = Depends(get_auth_services)):
+    await auth_services.register_user(user_data)
 
 
 @router_auth.post("/login")
-async def login_user(response: Response, user_data: SUserAuth):
-    user = await authenticate_user(user_data.email, user_data.password)
-    access_token = create_access_token({"sub": str(user.id)})
-    response.set_cookie("booking_access_token", access_token, httponly=True)
-    return {"access_token": access_token}
+async def login_user(response: Response, user_data: SUserAuth,
+                     auth_services: AuthServices = Depends(get_auth_services)):
+    return auth_services.login_user(response, user_data)
 
 
 @router_auth.post("/logout")
-async def logaut_user(response: Response):
-    response.delete_cookie("booking_access_token")
+async def logaut_user(response: Response, auth_services: AuthServices = Depends(get_auth_services)):
+    await auth_services.logaut_user(response)
 
 
 @router_users.get("/me")
-async def read_users_me(current_user=Depends(get_current_user)) -> SUserReadMe:
-    return current_user
+async def read_users_me(current_user=Depends(get_current_user),
+                        users_services: UsersServices = Depends(get_users_services)) -> SUserReadMe:
+    return users_services.read_users_me(current_user)
