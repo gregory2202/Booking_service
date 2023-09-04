@@ -64,5 +64,5 @@ class UsersServices:
         self.users_repository = users_repository
 
     @staticmethod
-    async def read_users_me(current_user):
+    def read_users_me(current_user):
         return current_user

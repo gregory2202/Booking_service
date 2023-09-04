@@ -17,7 +17,7 @@ async def register_user(user_data: SUserAuth, auth_services: AuthServices = Depe
 @router_auth.post("/login")
 async def login_user(response: Response, user_data: SUserAuth,
                      auth_services: AuthServices = Depends(get_auth_services)):
-    return auth_services.login_user(response, user_data)
+    return await auth_services.login_user(response, user_data)
 
 
 @router_auth.post("/logout")
@@ -26,6 +26,6 @@ async def logaut_user(response: Response, auth_services: AuthServices = Depends(
 
 
 @router_users.get("/me")
-async def read_users_me(current_user=Depends(get_current_user),
-                        users_services: UsersServices = Depends(get_users_services)) -> SUserReadMe:
+def read_users_me(current_user=Depends(get_current_user),
+                  users_services: UsersServices = Depends(get_users_services)) -> SUserReadMe:
     return users_services.read_users_me(current_user)
