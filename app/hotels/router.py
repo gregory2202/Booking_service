@@ -3,10 +3,10 @@ from datetime import date
 from fastapi import APIRouter, Depends
 from fastapi_cache.decorator import cache
 
-from app.hotels.dependencies import get_hotels_services
-from app.hotels.schemas import SHotel, SHotelInfo
 from app.hotels.rooms.router import router as router_books
+from app.hotels.dependencies import get_hotels_services
 from app.hotels.services import HotelsServices
+from app.hotels.schemas import SHotel, SHotelInfo
 
 router = APIRouter(prefix="/hotels", tags=["Отели"])
 router.include_router(router_books)
