@@ -25,4 +25,4 @@ class BookingsServices:
 
     async def send_booking_confirmation_email(self, booking: Bookings):
         booking_data = await self.bookings_repository.find_data_for_mail(booking)
-        await send_email(**booking_data)
+        send_email.delay(**booking_data)
