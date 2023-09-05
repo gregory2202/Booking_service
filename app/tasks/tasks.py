@@ -37,7 +37,7 @@ def send_email(email, hotel_name: str, room_name: str, date_from: date, date_to:
     template = Template(template_str)
     html_body = template.render(data=data)
 
-    message = MessageSchema(subject='Подтверждение бронирования', recipients=['gregory.konovalov.1999@mail.ru'],
+    message = MessageSchema(subject='Подтверждение бронирования', recipients=[email],
                             body=html_body,
                             subtype=MessageType.html)
 
