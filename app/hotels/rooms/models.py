@@ -18,8 +18,8 @@ class Rooms(Base):
     quantity: Mapped[int] = mapped_column(nullable=False)
     image_id: Mapped[int]
 
-    booking = relationship("Bookings", back_populates="room")
-    hotel = relationship("Hotels", back_populates="rooms")
+    bookings: Mapped["Bookings"] = relationship(back_populates="room")
+    hotel: Mapped["Hotels"] = relationship(back_populates="rooms")
 
     def __str__(self):
         return f"Номер {self.name}"
