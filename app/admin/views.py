@@ -11,9 +11,9 @@ class UsersAdmin(ModelView, model=Users):
     name_plural = "Пользователи"
     icon = "fa-solid fa-users"
 
-    column_list = [Users.id, Users.email]
-    column_details_list = [Users.id, Users.email, Users.bookings]
-    column_labels = {Users.id: "ID", Users.email: "Email", Users.bookings: "Бронирования"}
+    column_list = [Users.id, Users.email, Users.role]
+    column_details_list = [Users.id, Users.email, Users.role, Users.bookings]
+    column_labels = {Users.id: "ID", Users.email: "Email", Users.bookings: "Бронирования", Users.role: "Роль"}
     page_size = 25
 
     can_delete = False

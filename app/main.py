@@ -6,6 +6,7 @@ from fastapi_cache.backends.redis import RedisBackend
 from sqladmin import Admin
 from redis import asyncio as aioredis
 
+from app.admin.auth import authentication_backend
 from app.admin.views import UsersAdmin, BookingsAdmin, HotelsAdmin, RoomsAdmin
 from app.bookings.router import router as router_bookings
 from app.users.router import router_auth, router_users
@@ -32,7 +33,7 @@ app.include_router(router_hotels)
 app.include_router(router_bookings)
 
 #  Создание и подключение административной панели
-admin = Admin(app, engine)
+admin = Admin(app, engine, authentication_backend=authentication_backend)
 
 admin.add_view(UsersAdmin)
 admin.add_view(BookingsAdmin)
