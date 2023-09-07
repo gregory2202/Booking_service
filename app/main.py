@@ -3,13 +3,15 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
+from sqladmin import Admin
 from redis import asyncio as aioredis
 
+from app.admin.views import UsersAdmin, BookingsAdmin, HotelsAdmin, RoomsAdmin
 from app.bookings.router import router as router_bookings
-from app.users.router import router_auth
-from app.users.router import router_users
+from app.users.router import router_auth, router_users
 from app.hotels.router import router as router_hotels
 from app.config import settings
+from app.database import engine
 
 
 # Настройка lifespan приложения
@@ -28,3 +30,11 @@ app.include_router(router_auth)
 app.include_router(router_users)
 app.include_router(router_hotels)
 app.include_router(router_bookings)
+
+#  Создание и подключение административной панели
+admin = Admin(app, engine)
+
+admin.add_view(UsersAdmin)
+admin.add_view(BookingsAdmin)
+admin.add_view(HotelsAdmin)
+admin.add_view(RoomsAdmin)
