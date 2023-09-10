@@ -2,18 +2,16 @@ from datetime import date
 
 from sqlalchemy import select, func, between, or_
 
-from app.database.database import async_session_maker
+from app.interfaces.repository import SQLAlchemyRepository
+from app.models.bookings import Bookings
 from app.models.hotels import Hotels
 from app.models.rooms import Rooms
-from app.models.bookings import Bookings
-from app.repositories.base_repository import SQLAlchemyRepository
 
 
-class HotelsRepositoryAbstract(SQLAlchemyRepository):
+class HotelsRepository(SQLAlchemyRepository):
     model = Hotels
 
-    @classmethod
-    async def find_all(cls, location: str, date_from: date, date_to: date):
+    async def find_all(self, location: str, date_from: date, date_to: date):
         """
         WITH booked_rooms as (SELECT bookings.room_id, count(*) as booked_rooms
                        FROM bookings
@@ -45,6 +43,5 @@ class HotelsRepositoryAbstract(SQLAlchemyRepository):
             .group_by(Hotels.id, Hotels.rooms_quantity) \
             .having(Hotels.rooms_quantity - func.sum(func.coalesce(booked_rooms.columns.booked_rooms, 0)) > 0)
 
-        async with async_session_maker() as session:
-            get_hotels = await session.execute(query)
-            return get_hotels.mappings().all()
+        get_hotels = await self.session.execute(query)
+        return get_hotels.mappings().all()

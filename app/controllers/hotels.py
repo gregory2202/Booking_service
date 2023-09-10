@@ -4,9 +4,9 @@ from fastapi import APIRouter, Depends
 from fastapi_cache.decorator import cache
 
 from app.controllers.rooms import router as router_books
-from app.dependencies.hotels import get_hotels_services
-from app.services.hotels import HotelsServices
+from app.dependencies.services import get_hotels_services
 from app.schemas.hotels import SHotel, SHotelInfo
+from app.services.hotels import HotelsServices
 
 router = APIRouter(prefix="/hotels", tags=["Отели"])
 router.include_router(router_books)

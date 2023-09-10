@@ -3,8 +3,9 @@ from starlette.requests import Request
 from starlette.responses import RedirectResponse
 
 from app.config import settings
+from app.dependencies.auth import get_current_user
+from app.dependencies.services import get_auth_services
 from app.exceptions.exceptions import AccessException
-from app.dependencies.users import get_auth_services, get_current_user
 
 auth_services = get_auth_services()
 

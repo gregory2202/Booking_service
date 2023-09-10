@@ -3,15 +3,15 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
-from sqladmin import Admin
 from redis import asyncio as aioredis
+from sqladmin import Admin
 
 from app.admin.auth import authentication_backend
 from app.admin.views import UsersAdmin, BookingsAdmin, HotelsAdmin, RoomsAdmin
-from app.controllers.bookings import router as router_bookings
-from app.controllers.users import router_auth, router_users
-from app.controllers.hotels import router as router_hotels
 from app.config import settings
+from app.controllers.bookings import router as router_bookings
+from app.controllers.hotels import router as router_hotels
+from app.controllers.users import router_auth, router_users
 from app.database.database import engine
 
 

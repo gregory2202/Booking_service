@@ -1,10 +1,10 @@
 from datetime import date
 
-from app.repositories.rooms import RoomsRepositoryAbstract
+from app.repositories.rooms import RoomsRepository
 
 
 class RoomsServices:
-    def __init__(self, rooms_repository: RoomsRepositoryAbstract):
+    def __init__(self, rooms_repository: RoomsRepository):
         self.rooms_repository = rooms_repository
 
     async def get_rooms_by_date(self, hotel_id: int, date_from: date, date_to: date):

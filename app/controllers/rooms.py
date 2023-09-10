@@ -3,9 +3,9 @@ from datetime import date
 from fastapi import APIRouter, Depends
 from fastapi_cache.decorator import cache
 
-from app.dependencies.rooms import get_rooms_services
-from app.services.rooms import RoomsServices
+from app.dependencies.services import get_rooms_services
 from app.schemas.rooms import SRoomInfo
+from app.services.rooms import RoomsServices
 
 router = APIRouter()
 
