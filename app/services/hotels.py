@@ -1,10 +1,10 @@
 from datetime import date
 
-from app.hotels.repository import HotelsRepository
+from app.repositories.hotels import HotelsRepositoryAbstract
 
 
 class HotelsServices:
-    def __init__(self, hotels_repository: HotelsRepository):
+    def __init__(self, hotels_repository: HotelsRepositoryAbstract):
         self.hotels_repository = hotels_repository
 
     async def get_hotels_by_location_and_time(self, location: str, date_from: date, date_to: date):

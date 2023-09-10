@@ -3,7 +3,7 @@ from datetime import date
 from sqlalchemy import ForeignKey, Computed
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.database import Base
+from app.database.database import Base
 
 
 class Bookings(Base):

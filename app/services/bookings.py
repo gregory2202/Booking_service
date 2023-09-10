@@ -1,9 +1,9 @@
-from app.bookings.repository import BookingsRepository
-from app.bookings.models import Bookings
-from app.users.models import Users
-from app.bookings.schemas import SNewBooking
+from app.repositories.bookings import BookingsRepository
+from app.models.bookings import Bookings
+from app.models.users import Users
+from app.schemas.bookings import SNewBooking
 from app.tasks.tasks import send_email
-from app.exceptions import RoomCannotBeBooked
+from app.exceptions.exceptions import RoomCannotBeBooked
 
 
 class BookingsServices:

@@ -6,15 +6,15 @@ from pydantic import EmailStr
 from jose import jwt
 
 from app.config import settings
-from app.users.repository import UsersRepository
-from app.exceptions import IncorrectEmailOrPasswordException, UserAlreadyExistsException, CannotAddDataToDatabase
-from app.users.schemas import SUserAuth
+from app.repositories.users import UsersRepositoryAbstract
+from app.exceptions.exceptions import IncorrectEmailOrPasswordException, UserAlreadyExistsException, CannotAddDataToDatabase
+from app.schemas.users import SUserAuth
 
 pwd_context = CryptContext(schemes="bcrypt", deprecated="auto")
 
 
 class AuthServices:
-    def __init__(self, users_repository: UsersRepository):
+    def __init__(self, users_repository: UsersRepositoryAbstract):
         self.users_repository = users_repository
 
     @staticmethod
@@ -60,7 +60,7 @@ class AuthServices:
 
 
 class UsersServices:
-    def __init__(self, users_repository: UsersRepository):
+    def __init__(self, users_repository: UsersRepositoryAbstract):
         self.users_repository = users_repository
 
     @staticmethod

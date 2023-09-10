@@ -1,34 +1,10 @@
-from abc import ABC, abstractmethod
-
 from sqlalchemy import select, insert, delete
 
-from app.database import async_session_maker
+from app.interfaces.repository import AbstractSQLAlchemyRepository
+from app.database.database import async_session_maker
 
 
-class AbstractRepository(ABC):
-
-    @classmethod
-    @abstractmethod
-    async def find_all(cls, **kwargs):
-        raise NotImplemented
-
-    @classmethod
-    @abstractmethod
-    async def find_one_or_none(cls, **kwargs):
-        raise NotImplemented
-
-    @classmethod
-    @abstractmethod
-    async def add(cls, **kwargs):
-        raise NotImplemented
-
-    @classmethod
-    @abstractmethod
-    async def delete(cls, **kwargs):
-        raise NotImplemented
-
-
-class SQLAlchemyRepository(AbstractRepository):
+class SQLAlchemyRepository(AbstractSQLAlchemyRepository):
     model = None
 
     @classmethod

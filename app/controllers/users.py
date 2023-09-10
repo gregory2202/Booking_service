@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Response, Depends
 
-from app.users.schemas import SUserAuth, SUserReadMe
+from app.schemas.users import SUserAuth, SUserReadMe
 
-from app.users.services import UsersServices, AuthServices
-from app.users.dependencies import get_current_user, get_users_services, get_auth_services
+from app.services.users import UsersServices, AuthServices
+from app.dependencies.users import get_current_user, get_users_services, get_auth_services
 
 router_auth = APIRouter(prefix="/auth", tags=["Аутентификация"])
 router_users = APIRouter(prefix="/users", tags=["Пользователи"])

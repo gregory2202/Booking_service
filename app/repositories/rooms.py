@@ -2,13 +2,13 @@ from datetime import date
 
 from sqlalchemy import select, func, or_, between
 
-from app.database import async_session_maker
-from app.repository.base_repository import SQLAlchemyRepository
-from app.hotels.rooms.models import Rooms
-from app.bookings.models import Bookings
+from app.database.database import async_session_maker
+from app.models.rooms import Rooms
+from app.models.bookings import Bookings
+from app.repositories.base_repository import SQLAlchemyRepository
 
 
-class RoomsRepository(SQLAlchemyRepository):
+class RoomsRepositoryAbstract(SQLAlchemyRepository):
     model = Rooms
 
     @classmethod
