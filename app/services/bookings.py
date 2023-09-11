@@ -22,7 +22,3 @@ class BookingsServices:
     async def remove_booking(self, booking_id: int, user: Users):
         await self.bookings_repository.delete(id=booking_id, user_id=user.id)
         #  Написать ответ пользователю, работа с исключениями
-
-    async def send_booking_confirmation_email(self, booking: Bookings):
-        booking_data = await self.bookings_repository.find_data_for_mail(booking)
-        send_email.delay(**booking_data)

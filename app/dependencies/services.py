@@ -9,6 +9,7 @@ from app.repositories.rooms import RoomsRepository
 from app.repositories.users import UsersRepository
 from app.services.auth import AuthServices
 from app.services.bookings import BookingsServices
+from app.services.email import EmailServices
 from app.services.hotels import HotelsServices
 from app.services.rooms import RoomsServices
 from app.services.users import UsersServices
@@ -32,3 +33,7 @@ def get_hotels_services(repository: HotelsRepository = Depends(get_hotels_reposi
 
 def get_rooms_services(repository: RoomsRepository = Depends(get_rooms_repository)):
     return RoomsServices(repository)
+
+
+def get_email_services(repository: RoomsRepository = Depends(get_bookings_repository)):
+    return EmailServices(repository)

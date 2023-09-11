@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends
 
 from app.dependencies.auth import get_current_user
-from app.dependencies.services import get_bookings_services
+from app.dependencies.services import get_bookings_services, get_email_services
 from app.models.users import Users
 from app.schemas.bookings import SBookingInfo, SNewBooking
 from app.services.bookings import BookingsServices
+from app.services.email import EmailServices
 
 router = APIRouter(prefix="/bookinks", tags=["Бронирования"])
 
@@ -17,9 +18,10 @@ async def get_bookings(bookings_services: BookingsServices = Depends(get_booking
 
 @router.post("")
 async def add_booking(new_booking: SNewBooking, bookings_services: BookingsServices = Depends(get_bookings_services),
+                      email_services: EmailServices = Depends(get_email_services),
                       user: Users = Depends(get_current_user)):
     booking = await bookings_services.add_booking(new_booking, user)
-    await bookings_services.send_booking_confirmation_email(booking)
+    await email_services.send_booking_confirmation_email(booking)
     return booking
 
 
