@@ -9,9 +9,10 @@ from sqladmin import Admin
 from app.admin.auth import authentication_backend
 from app.admin.views import UsersAdmin, BookingsAdmin, HotelsAdmin, RoomsAdmin
 from app.config import settings
+from app.controllers.auth import router as router_auth
 from app.controllers.bookings import router as router_bookings
 from app.controllers.hotels import router as router_hotels
-from app.controllers.users import router_auth, router_users
+from app.controllers.users import router as router_users
 from app.database.database import engine
 
 

@@ -51,6 +51,7 @@ class AuthServices:
         new_user = await self.users_repository.add(email=user_data.email, hashed_password=hashed_password)
         if not new_user:
             raise CannotAddDataToDatabase
+        return {"message": "Регистрация успешно завершена"}
 
     async def login_user(self, response: Response, user_data: SUserAuth):
         user = await self.authenticate_user(user_data.email, user_data.password)
@@ -61,3 +62,4 @@ class AuthServices:
     @staticmethod
     async def logaut_user(response: Response):
         response.delete_cookie("booking_access_token")
+        return {"message": "Успешный выход из системы"}
