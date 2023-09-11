@@ -47,4 +47,3 @@ class SQLAlchemyRepository(AbstractRepository):
     async def delete(self, **kwargs):
         query = delete(self.model).filter_by(**kwargs)
         await self.session.execute(query)
-        #  Придумать ответ пользователю!

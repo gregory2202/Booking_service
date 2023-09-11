@@ -28,4 +28,4 @@ async def add_booking(new_booking: SNewBooking, bookings_services: BookingsServi
 @router.post("/{booking_id}")
 async def remove_booking(booking_id: int, bookings_services: BookingsServices = Depends(get_bookings_services),
                          user: Users = Depends(get_current_user)) -> None:
-    await bookings_services.remove_booking(booking_id, user)
+    return await bookings_services.remove_booking(booking_id, user)

@@ -1,9 +1,7 @@
-from app.exceptions.exceptions import RoomCannotBeBooked
-from app.models.bookings import Bookings
+from app.exceptions.exceptions import RoomCannotBeBooked, ReservationNotFoundError
 from app.models.users import Users
 from app.repositories.bookings import BookingsRepository
 from app.schemas.bookings import SNewBooking
-from app.tasks.tasks import send_email
 
 
 class BookingsServices:
@@ -20,5 +18,8 @@ class BookingsServices:
         return booking
 
     async def remove_booking(self, booking_id: int, user: Users):
+        booking = await self.bookings_repository.find_one_or_none(id=booking_id, user_id=user.id)
+        if not booking:
+            raise ReservationNotFoundError
         await self.bookings_repository.delete(id=booking_id, user_id=user.id)
-        #  Написать ответ пользователю, работа с исключениями
+        return {"message": "Бронь успешно удалена", "reservation_id": booking_id}
