@@ -48,6 +48,11 @@ class RoomFullyBooked(BookingException):
     detail = "Не осталось свободных номеров"
 
 
+class ReservationNotFoundError(BookingException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Бронь не найдена"
+
+
 class RoomCannotBeBooked(BookingException):
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     detail = "Не удалось забронировать номер ввиду неизвестной ошибки"
