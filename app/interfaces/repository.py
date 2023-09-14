@@ -1,49 +1,43 @@
 from abc import ABC, abstractmethod
 
-from sqlalchemy import select, insert, delete
-from sqlalchemy.ext.asyncio import AsyncSession
 
-
-class AbstractRepository(ABC):
+class IRepository(ABC):
 
     @abstractmethod
     async def find_all(self, **kwargs):
-        raise NotImplemented
+        raise NotImplementedError
 
     @abstractmethod
     async def find_one_or_none(self, **kwargs):
-        raise NotImplemented
+        raise NotImplementedError
 
     @abstractmethod
     async def add(self, **kwargs):
-        raise NotImplemented
+        raise NotImplementedError
 
     @abstractmethod
     async def delete(self, **kwargs):
-        raise NotImplemented
+        raise NotImplementedError
 
 
-class SQLAlchemyRepository(AbstractRepository):
-    model = None
+class IUsersRepository(IRepository, ABC):
+    pass
 
-    def __init__(self, session: AsyncSession):
-        self.session = session
 
-    async def find_all(self, **kwargs):
-        query = select(self.model).filter_by(**kwargs)
-        result = await self.session.execute(query)
-        return result.mappings().all()
+class IBookingsRepository(IRepository, ABC):
 
-    async def find_one_or_none(self, **kwargs):
-        query = select(self.model).filter_by(**kwargs)
-        result = await self.session.execute(query)
-        return result.scalars().first()
+    @abstractmethod
+    async def find_all_with_images(self, **kwargs):
+        raise NotImplementedError
 
-    async def add(self, **kwargs):
-        query = insert(self.model).values(**kwargs).returning(self.model)
-        result = await self.session.execute(query)
-        return result.mappings().first()
+    @abstractmethod
+    async def find_data_for_mail(self, **kwargs):
+        raise NotImplementedError
 
-    async def delete(self, **kwargs):
-        query = delete(self.model).filter_by(**kwargs)
-        await self.session.execute(query)
+
+class IHotelsRepository(IRepository, ABC):
+    pass
+
+
+class IRoomsRepository(IRepository, ABC):
+    pass
