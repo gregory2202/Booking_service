@@ -2,13 +2,14 @@ from datetime import date
 
 from sqlalchemy import select, func, between, or_
 
-from app.interfaces.repository import SQLAlchemyRepository
+from app.interfaces.repository import IHotelsRepository
 from app.models.bookings import Bookings
 from app.models.hotels import Hotels
 from app.models.rooms import Rooms
+from app.repositories.base_repository import SQLAlchemyBaseRepository
 
 
-class HotelsRepository(SQLAlchemyRepository):
+class SQLAlchemyHotelsRepository(SQLAlchemyBaseRepository, IHotelsRepository):
     model = Hotels
 
     async def find_all(self, location: str, date_from: date, date_to: date):

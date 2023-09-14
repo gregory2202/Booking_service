@@ -3,14 +3,15 @@ from datetime import date
 from sqlalchemy import select, between, or_, insert
 
 from app.exceptions.exceptions import RoomFullyBooked
-from app.interfaces.repository import SQLAlchemyRepository
+from app.interfaces.repository import IBookingsRepository
 from app.models.bookings import Bookings
 from app.models.hotels import Hotels
 from app.models.rooms import Rooms
 from app.models.users import Users
+from app.repositories.base_repository import SQLAlchemyBaseRepository
 
 
-class BookingsRepository(SQLAlchemyRepository):
+class SQLAlchemyBookingsRepository(SQLAlchemyBaseRepository, IBookingsRepository):
     model = Bookings
 
     async def find_all_with_images(self, user_id: int):
