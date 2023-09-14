@@ -1,12 +1,7 @@
 from fastapi import Depends
 
-from app.dependencies.repositories import (
-    get_users_repository, get_bookings_repository, get_hotels_repository, get_rooms_repository
-)
-from app.repositories.bookings import BookingsRepository
-from app.repositories.hotels import HotelsRepository
-from app.repositories.rooms import RoomsRepository
-from app.repositories.users import UsersRepository
+from app.dependencies.unit_of_work import get_unit_of_work
+from app.interfaces.unit_of_work import IUnitOfWork
 from app.services.auth import AuthServices
 from app.services.bookings import BookingsServices
 from app.services.email import EmailServices
@@ -15,25 +10,25 @@ from app.services.rooms import RoomsServices
 from app.services.users import UsersServices
 
 
-def get_auth_services(repository: UsersRepository = Depends(get_users_repository)):
-    return AuthServices(repository)
+def get_auth_services(unit_of_work: IUnitOfWork = Depends(get_unit_of_work)) -> AuthServices:
+    return AuthServices(unit_of_work)
 
 
-def get_users_services(repository: UsersRepository = Depends(get_users_repository)):
-    return UsersServices(repository)
+def get_bookings_services(unit_of_work: IUnitOfWork = Depends(get_unit_of_work)) -> BookingsServices:
+    return BookingsServices(unit_of_work)
 
 
-def get_bookings_services(repository: BookingsRepository = Depends(get_bookings_repository)):
-    return BookingsServices(repository)
+def get_email_services(unit_of_work: IUnitOfWork = Depends(get_unit_of_work)) -> EmailServices:
+    return EmailServices(unit_of_work)
 
 
-def get_hotels_services(repository: HotelsRepository = Depends(get_hotels_repository)):
-    return HotelsServices(repository)
+def get_hotels_services(unit_of_work: IUnitOfWork = Depends(get_unit_of_work)) -> HotelsServices:
+    return HotelsServices(unit_of_work)
 
 
-def get_rooms_services(repository: RoomsRepository = Depends(get_rooms_repository)):
-    return RoomsServices(repository)
+def get_rooms_services(unit_of_work: IUnitOfWork = Depends(get_unit_of_work)) -> RoomsServices:
+    return RoomsServices(unit_of_work)
 
 
-def get_email_services(repository: RoomsRepository = Depends(get_bookings_repository)):
-    return EmailServices(repository)
+def get_users_services(unit_of_work: IUnitOfWork = Depends(get_unit_of_work)) -> UsersServices:
+    return UsersServices(unit_of_work)

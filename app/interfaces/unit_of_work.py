@@ -10,7 +10,7 @@ class IUnitOfWork(ABC):
     rooms_repository: IRoomsRepository
 
     @abstractmethod
-    async def __aenter__(self):
+    async def __aenter__(self) -> "IUnitOfWork":
         raise NotImplementedError
 
     @abstractmethod

@@ -21,7 +21,7 @@ async def add_booking(new_booking: SNewBooking, bookings_services: BookingsServi
                       email_services: EmailServices = Depends(get_email_services),
                       user: Users = Depends(get_current_user)) -> SBooking:
     booking = await bookings_services.add_booking(new_booking, user)
-    await email_services.send_booking_confirmation_email(booking)
+    await email_services.send_booking_confirmation_email(booking.id)
     return booking
 
 

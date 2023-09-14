@@ -11,15 +11,15 @@ from app.exceptions.exceptions import (
     UserAlreadyExistsException,
     CannotAddDataToDatabase
 )
-from app.repositories.users import UsersRepository
+from app.interfaces.unit_of_work import IUnitOfWork
 from app.schemas.users import SUserAuth
 
 pwd_context = CryptContext(schemes="bcrypt", deprecated="auto")
 
 
 class AuthServices:
-    def __init__(self, users_repository: UsersRepository):
-        self.users_repository = users_repository
+    def __init__(self, unit_of_work: IUnitOfWork):
+        self.unit_of_work = unit_of_work
 
     @staticmethod
     def get_password_hash(password: str) -> str:
@@ -38,20 +38,22 @@ class AuthServices:
         return encoded_jwt
 
     async def authenticate_user(self, email: EmailStr, password: str):
-        user = await self.users_repository.find_one_or_none(email=email)
-        if not (user and self.verify_password(password, user.hashed_password)):
-            raise IncorrectEmailOrPasswordException
-        return user
+        async with self.unit_of_work as session:
+            user = await session.users_repository.find_one_or_none(email=email)
+            if not (user and self.verify_password(password, user.hashed_password)):
+                raise IncorrectEmailOrPasswordException
+            return user
 
     async def register_user(self, user_data: SUserAuth):
-        existing_user = await self.users_repository.find_one_or_none(email=user_data.email)
-        if existing_user:
-            raise UserAlreadyExistsException
-        hashed_password = self.get_password_hash(user_data.password)
-        new_user = await self.users_repository.add(email=user_data.email, hashed_password=hashed_password)
-        if not new_user:
-            raise CannotAddDataToDatabase
-        return {"message": "Регистрация успешно завершена"}
+        async with self.unit_of_work as session:
+            existing_user = await session.users_repository.find_one_or_none(email=user_data.email)
+            if existing_user:
+                raise UserAlreadyExistsException
+            hashed_password = self.get_password_hash(user_data.password)
+            new_user = await session.users_repository.add(email=user_data.email, hashed_password=hashed_password)
+            if not new_user:
+                raise CannotAddDataToDatabase
+            return {"message": "Регистрация успешно завершена"}
 
     async def login_user(self, response: Response, user_data: SUserAuth):
         user = await self.authenticate_user(user_data.email, user_data.password)

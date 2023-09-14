@@ -31,7 +31,7 @@ class IBookingsRepository(IRepository, ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def find_data_for_mail(self, **kwargs):
+    async def find_data_for_mail(self, booking_id):
         raise NotImplementedError
 
 

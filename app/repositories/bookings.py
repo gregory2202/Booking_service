@@ -62,7 +62,7 @@ class SQLAlchemyBookingsRepository(SQLAlchemyBaseRepository, IBookingsRepository
         else:
             raise RoomFullyBooked
 
-    async def find_data_for_mail(self, booking: Bookings):
+    async def find_data_for_mail(self, booking_id: Bookings):
         """
         SELECT bookings.date_from, bookings.date_to, bookings.total_cost, users.email, hotels.name, rooms.name
         FROM bookings
@@ -73,7 +73,7 @@ class SQLAlchemyBookingsRepository(SQLAlchemyBaseRepository, IBookingsRepository
         """
 
         query = select(Bookings.date_from, Bookings.date_to, Bookings.total_cost, Users.email,
-                       Hotels.name.label("hotel_name"), Rooms.name.label("room_name")).where(Bookings.id == booking.id)
+                       Hotels.name.label("hotel_name"), Rooms.name.label("room_name")).where(Bookings.id == booking_id)
 
         data_for_email = await self.session.execute(query)
         return data_for_email.mappings().first()

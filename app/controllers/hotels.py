@@ -22,5 +22,6 @@ async def get_hotels_by_location_and_time(location: str, date_from: date, date_t
 
 
 @router.get("/id/{hotel_id}")
-async def get_hotel_by_id(hotel_id: int, hotels_services=Depends(get_hotels_services)) -> SHotel | None:
+async def get_hotel_by_id(hotel_id: int,
+                          hotels_services: HotelsServices = Depends(get_hotels_services)) -> SHotel | None:
     return await hotels_services.get_hotel_by_id(hotel_id=hotel_id)
