@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "hotel_id": 1,
+        "name": "Стандартный номер",
+        "description": "Уютный номер с двуспальной кроватью.",
+        "price": 5000,
+        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Мини-бар", "free": false}],
+        "quantity": 3,
+        "image_id": 11224
+    },
+    {
+        "id": 2,
+        "hotel_id": 1,
+        "name": "Люкс",
+        "description": "Просторный номер с панорамным видом.",
+        "price": 10000,
+        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Джакузи", "free": true}],
+        "quantity": 3,
+        "image_id": 11225
+    },
+    {
+        "id": 3,
+        "hotel_id": 2,
+        "name": "Стандартный номер",
+        "description": "Современный номер с видом на город.",
+        "price": 5500,
+        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Телевизор", "free": true}],
+        "quantity": 3,
+        "image_id": 11226
+    },
+    {
+        "id": 4,
+        "hotel_id": 2,
+        "name": "Люкс с балконом",
+        "description": "Просторный номер с личным балконом.",
+        "price": 10500,
+        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Джакузи", "free": false}],
+        "quantity": 3,
+        "image_id": 11227
+    },
+    {
+        "id": 5,
+        "hotel_id": 3,
+        "name": "Стандартный номер",
+        "description": "Комфортный номер для путешественников.",
+        "price": 4900,
+        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Кондиционер", "free": true}],
+        "quantity": 3,
+        "image_id": 11228
+    },
+    {
+        "id": 6,
+        "hotel_id": 3,
+        "name": "Люкс",
+        "description": "Просторный номер с изысканным декором.",
+        "price": 9800,
+        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Мини-бар", "free": false}],
+        "quantity": 3,
+        "image_id": 11229
+    }
+]

@@ -1,7 +1,12 @@
+import os
+from typing import Literal
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    MODE: Literal["DEV", "PROD", "TEST"]
+
     DB_HOST: str
     DB_NAME: str
 
@@ -21,7 +26,7 @@ class Settings(BaseSettings):
     MAIL_PORT: int
     MAIL_SERVER: str
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".test.env" if os.getenv("MODE") == "TEST" else ".env")
 
 
 settings = Settings()
