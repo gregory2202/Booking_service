@@ -38,19 +38,19 @@ class AuthServices:
         return encoded_jwt
 
     async def authenticate_user(self, email: EmailStr, password: str):
-        async with self.unit_of_work as session:
-            user = await session.users_repository.find_one_or_none(email=email)
+        async with self.unit_of_work as uow:
+            user = await uow.users_repository.find_one_or_none(email=email)
             if not (user and self.verify_password(password, user.hashed_password)):
                 raise IncorrectEmailOrPasswordException
             return user
 
     async def register_user(self, user_data: SUserAuth):
-        async with self.unit_of_work as session:
-            existing_user = await session.users_repository.find_one_or_none(email=user_data.email)
+        async with self.unit_of_work as uow:
+            existing_user = await uow.users_repository.find_one_or_none(email=user_data.email)
             if existing_user:
                 raise UserAlreadyExistsException
             hashed_password = self.get_password_hash(user_data.password)
-            new_user = await session.users_repository.add(email=user_data.email, hashed_password=hashed_password)
+            new_user = await uow.users_repository.add(email=user_data.email, hashed_password=hashed_password)
             if not new_user:
                 raise CannotAddDataToDatabase
             return {"message": "Регистрация успешно завершена"}
