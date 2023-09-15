@@ -12,7 +12,7 @@ class Rooms(Base):
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     hotel_id: Mapped[int] = mapped_column(ForeignKey("hotels.id"))
     name: Mapped[str] = mapped_column(nullable=False)
-    description: Mapped[int] = mapped_column(nullable=False)
+    description: Mapped[str] = mapped_column(nullable=False)
     price: Mapped[int] = mapped_column(nullable=False)
     services: Mapped[list[str, Any]] = mapped_column(JSON, nullable=False)
     quantity: Mapped[int] = mapped_column(nullable=False)
