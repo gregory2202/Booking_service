@@ -25,7 +25,7 @@ def upgrade() -> None:
     sa.Column('name', sa.String(), nullable=False),
     sa.Column('location', sa.String(), nullable=False),
     sa.Column('services', sa.JSON(), nullable=True),
-    sa.Column('room_quantity', sa.Integer(), nullable=False),
+    sa.Column('rooms_quantity', sa.Integer(), nullable=False),
     sa.Column('image_id', sa.Integer(), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
