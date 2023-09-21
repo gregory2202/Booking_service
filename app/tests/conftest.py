@@ -2,12 +2,14 @@ import asyncio
 import json
 from datetime import datetime
 
+from httpx import AsyncClient
 from pytest import fixture
 from sqlalchemy import insert
 
 from app.config import settings
 from app.database.database import Base, engine
 from app.dependencies.unit_of_work import get_unit_of_work
+from app.main import app as fastapi_app
 from app.models.bookings import Bookings
 from app.models.hotels import Hotels
 from app.models.rooms import Rooms
@@ -22,7 +24,7 @@ async def reload_database():
             await connection.run_sync(Base.metadata.create_all)
 
         def open_file_json(model: str):
-            with open(f"app/tests/mock_{model}.json") as file:
+            with open(f"app/tests/data_tests/mock_{model}.json", encoding="utf-8") as file:
                 return json.load(file)
 
         users = open_file_json("users")
@@ -38,6 +40,12 @@ async def reload_database():
             for model, values in ((Hotels, hotels), (Rooms, rooms), (Users, users), (Bookings, bookings)):
                 query = insert(model).values(values)
                 await uow.session.execute(query)
+
+
+@fixture(scope="session")
+async def async_client():
+    async with AsyncClient(app=fastapi_app, base_url="http://test") as async_client:
+        yield async_client
 
 
 @fixture(scope="session")
