@@ -1,17 +1,17 @@
 [
     {
         "email": "user@example.com",
-        "hashed_password": "$2b$12$4O9ONh3kCXIvKx8CCSJT2.YeS.ZcGdcwgUAxqNGL/WxOZR2DZSRUK",
+        "hashed_password": "$2b$12$sVEBcoFMbMvVY7fb.HnXOuFBofBNgEFC4GA1OVO3AhmYv7SFujc3m",
         "role": "test"
     },
     {
         "email": "dev@example.com",
-        "hashed_password": "$2b$12$T2UU5fwcCwxefR8RVofiMunRDKe36s4RfhR5VRd237Tu1x1gRVjJ6",
+        "hashed_password": "$2b$12$sVEBcoFMbMvVY7fb.HnXOuFBofBNgEFC4GA1OVO3AhmYv7SFujc3m",
         "role": "dev"
     },
     {
         "email": "admin@example.com",
-        "hashed_password": "$2b$12$bamXrwEcCfSITlndVAoO7uGJI4DDUulwY9Wbd3AY28Zdr0a5DB4Gu",
+        "hashed_password": "$2b$12$sVEBcoFMbMvVY7fb.HnXOuFBofBNgEFC4GA1OVO3AhmYv7SFujc3m",
         "role": "admin"
     }
 ]
