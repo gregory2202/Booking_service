@@ -8,7 +8,7 @@ from app.services.auth import AuthServices
 router = APIRouter(prefix="/auth", tags=["Аутентификация"])
 
 
-@router.post("/register")
+@router.post("/register", status_code=201)
 async def register_user(user_data: SUserAuth,
                         auth_services: AuthServices = Depends(get_auth_services)) -> RegisterLogoutResponse:
     return await auth_services.register_user(user_data)
