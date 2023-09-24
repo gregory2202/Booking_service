@@ -62,6 +62,6 @@ class AuthServices:
         return {"access_token": access_token}
 
     @staticmethod
-    async def logaut_user(response: Response):
+    async def logout_user(response: Response):
         response.delete_cookie("booking_access_token")
         return {"message": "Успешный выход из системы"}

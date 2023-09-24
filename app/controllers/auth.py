@@ -23,4 +23,4 @@ async def login_user(response: Response, user_data: SUserAuth,
 @router.post("/logout")
 async def logout_user(response: Response,
                       auth_services: AuthServices = Depends(get_auth_services)) -> RegisterLogoutResponse:
-    return await auth_services.logaut_user(response)
+    return await auth_services.logout_user(response)
