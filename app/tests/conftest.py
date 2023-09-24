@@ -42,9 +42,17 @@ async def reload_database():
                 await uow.session.execute(query)
 
 
-@fixture(scope="session")
+@fixture(scope="function")
 async def async_client():
     async with AsyncClient(app=fastapi_app, base_url="http://test") as async_client:
+        yield async_client
+
+
+@fixture(scope="function")
+async def auth_async_client():
+    async with AsyncClient(app=fastapi_app, base_url="http://test") as async_client:
+        await async_client.post("/auth/login", json={"email": "user@example.com", "password": "Aa@12345"})
+        assert async_client.cookies.get("booking_access_token")
         yield async_client
 
 
