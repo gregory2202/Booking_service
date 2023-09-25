@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "Booking service"
+version = "0.1.0"
+description = ""
+authors = ["gregory.konovalov <gregory.konovalov.1999@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+gunicorn = "^21.2.0"
+fastapi = "^0.103.1"
+fastapi-cache2 = "^0.2.1"
+fastapi-mail = "^1.4.1"
+alembic = "^1.12.0"
+sqlalchemy = "^2.0.21"
+passlib = "^1.7.4"
+jinja2 = "^3.1.2"
+celery = "^5.3.4"
+flower = "^2.0.1"
+sqladmin = "^0.15.0"
+redis = "^5.0.0"
+
+[tool.poetry.group.dev.dependencies]
+uvicorn = "^0.23.2"
+httpx = "^0.25.0"
+pytest = "^7.4.2"
+pytest-asyncio = "^0.21.1"
+polyfactory = "^2.9.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
