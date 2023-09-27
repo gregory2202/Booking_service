@@ -16,7 +16,7 @@ from app.models.rooms import Rooms
 from app.models.users import Users
 
 
-@fixture(scope="session", autouse=True)
+@fixture(scope="module", autouse=True)
 async def reload_database():
     if settings.MODE == "TEST":
         async with engine.begin() as connection:
@@ -24,7 +24,7 @@ async def reload_database():
             await connection.run_sync(Base.metadata.create_all)
 
         def open_file_json(model: str):
-            with open(f"app/tests/data_tests/mock_{model}.json", encoding="utf-8") as file:
+            with open(f"app/tests/data/mock_{model}.json", encoding="utf-8") as file:
                 return json.load(file)
 
         users = open_file_json("users")

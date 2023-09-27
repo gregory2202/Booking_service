@@ -7,7 +7,7 @@ from app.schemas.bookings import SBookingInfo, SNewBooking, SBooking, SDeleteBoo
 from app.services.bookings import BookingsServices
 from app.services.email import EmailServices
 
-router = APIRouter(prefix="/bookinks", tags=["Бронирования"])
+router = APIRouter(prefix="/bookings", tags=["Бронирования"])
 
 
 @router.get("")
@@ -25,7 +25,7 @@ async def add_booking(new_booking: SNewBooking, bookings_services: BookingsServi
     return booking
 
 
-@router.post("/{booking_id}")
+@router.delete("/{booking_id}")
 async def remove_booking(booking_id: int, bookings_services: BookingsServices = Depends(get_bookings_services),
                          user: Users = Depends(get_current_user)) -> SDeleteBooking:
     return await bookings_services.remove_booking(booking_id, user)

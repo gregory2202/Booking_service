@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 @router.get("/{hotel_id}/rooms")
-@cache(expire=60)
+@cache(expire=30)
 async def get_rooms_by_date(hotel_id: int, date_from: date, date_to: date,
                             rooms_services: RoomsServices = Depends(get_rooms_services)) -> list[SRoomInfo]:
     return await rooms_services.get_rooms_by_date(hotel_id=hotel_id, date_from=date_from, date_to=date_to)
