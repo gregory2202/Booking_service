@@ -2,7 +2,7 @@ from datetime import date
 
 from sqlalchemy import select, between, or_, insert
 
-from app.exceptions.exceptions import RoomFullyBooked
+from app.exceptions.exceptions import RoomFullyBooked, RoomNotFoundError
 from app.interfaces.repository import IBookingsRepository
 from app.models.bookings import Bookings
 from app.models.hotels import Hotels
@@ -47,8 +47,13 @@ class SQLAlchemyBookingsRepository(SQLAlchemyBaseRepository, IBookingsRepository
                 between(date_from, Bookings.date_from, Bookings.date_to)))
 
         rooms_quantity = await self.session.execute(get_rooms_quantity)
+        rooms_quantity_scalar = rooms_quantity.scalar()
+
+        if rooms_quantity_scalar is None:
+            raise RoomNotFoundError
+
         booked_rooms = await self.session.execute(get_booked_rooms)
-        rooms_left = rooms_quantity.scalar() - len(booked_rooms.mappings().all())
+        rooms_left = rooms_quantity_scalar - len(booked_rooms.mappings().all())
 
         if rooms_left > 0:
             get_price = select(Rooms.price).where(Rooms.id == room_id)

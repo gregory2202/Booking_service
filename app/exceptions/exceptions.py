@@ -48,9 +48,34 @@ class RoomFullyBooked(BookingException):
     detail = "Не осталось свободных номеров"
 
 
+class InvalidDateError(BookingException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    detail = "Дата заезда не может быть позже даты выезда"
+
+
+class ExcessiveBookingDurationError(BookingException):
+    status_code = status.HTTP_400_BAD_REQUEST
+    detail = "Невозможно забронировать отель сроком более месяца"
+
+
 class ReservationNotFoundError(BookingException):
     status_code = status.HTTP_404_NOT_FOUND
     detail = "Бронь не найдена"
+
+
+class HotelNotFoundError(BookingException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Отель не найден"
+
+
+class RoomNotFoundError(BookingException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Комната не найдена"
+
+
+class LocationNotFoundError(BookingException):
+    status_code = status.HTTP_404_NOT_FOUND
+    detail = "Локация не найдена"
 
 
 class RoomCannotBeBooked(BookingException):
@@ -58,21 +83,6 @@ class RoomCannotBeBooked(BookingException):
     detail = "Не удалось забронировать номер ввиду неизвестной ошибки"
 
 
-class DateFromCannotBeAfterDateTo(BookingException):
-    status_code = status.HTTP_400_BAD_REQUEST
-    detail = "Дата заезда не может быть позже даты выезда"
-
-
-class CannotBookHotelForLongPeriod(BookingException):
-    status_code = status.HTTP_400_BAD_REQUEST
-    detail = "Невозможно забронировать отель сроком более месяца"
-
-
 class CannotAddDataToDatabase(BookingException):
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
     detail = "Не удалось добавить запись"
-
-
-class CannotProcessCSV(BookingException):
-    status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    detail = "Не удалось обработать CSV файл"
