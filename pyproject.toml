@@ -21,6 +21,7 @@ celery = "^5.3.4"
 flower = "^2.0.1"
 sqladmin = "^0.15.0"
 redis = "^5.0.0"
+bcrypt = "^4.0.1"
 
 [tool.poetry.group.dev.dependencies]
 uvicorn = "^0.23.2"
