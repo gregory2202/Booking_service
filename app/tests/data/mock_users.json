@@ -2,7 +2,7 @@
     {
         "email": "user@example.com",
         "hashed_password": "$2b$12$sVEBcoFMbMvVY7fb.HnXOuFBofBNgEFC4GA1OVO3AhmYv7SFujc3m",
-        "role": "test"
+        "role": "user"
     },
     {
         "email": "dev@example.com",
@@ -13,5 +13,10 @@
         "email": "admin@example.com",
         "hashed_password": "$2b$12$sVEBcoFMbMvVY7fb.HnXOuFBofBNgEFC4GA1OVO3AhmYv7SFujc3m",
         "role": "admin"
+    },
+    {
+        "email": "empty@example.com",
+        "hashed_password": "$2b$12$sVEBcoFMbMvVY7fb.HnXOuFBofBNgEFC4GA1OVO3AhmYv7SFujc3m",
+        "role": "user"
     }
 ]

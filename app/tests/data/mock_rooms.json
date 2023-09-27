@@ -4,8 +4,8 @@
         "name": "Стандартный номер",
         "description": "Уютный номер с двуспальной кроватью.",
         "price": 5000,
-        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Мини-бар", "free": false}],
-        "quantity": 3,
+        "services": ["Wi-Fi", "Мини-бар"],
+        "quantity": 1,
         "image_id": 11224
     },
     {
@@ -13,8 +13,8 @@
         "name": "Люкс",
         "description": "Просторный номер с панорамным видом.",
         "price": 10000,
-        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Джакузи", "free": true}],
-        "quantity": 3,
+        "services": ["Wi-Fi", "Джакузи"],
+        "quantity": 2,
         "image_id": 11225
     },
     {
@@ -22,7 +22,7 @@
         "name": "Стандартный номер",
         "description": "Современный номер с видом на город.",
         "price": 5500,
-        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Телевизор", "free": true}],
+        "services": ["Wi-Fi", "Телевизор"],
         "quantity": 3,
         "image_id": 11226
     },
@@ -31,7 +31,7 @@
         "name": "Люкс с балконом",
         "description": "Просторный номер с личным балконом.",
         "price": 10500,
-        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Джакузи", "free": false}],
+        "services": ["Wi-Fi", "Джакузи"],
         "quantity": 3,
         "image_id": 11227
     },
@@ -40,8 +40,8 @@
         "name": "Стандартный номер",
         "description": "Комфортный номер для путешественников.",
         "price": 4900,
-        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Кондиционер", "free": true}],
-        "quantity": 3,
+        "services": ["Wi-Fi", "Кондиционер"],
+        "quantity": 1,
         "image_id": 11228
     },
     {
@@ -49,8 +49,8 @@
         "name": "Люкс",
         "description": "Просторный номер с изысканным декором.",
         "price": 9800,
-        "services": [{"name": "Wi-Fi", "free": true}, {"name": "Мини-бар", "free": false}],
-        "quantity": 3,
+        "services": ["Wi-Fi", "Мини-бар"],
+        "quantity": 2,
         "image_id": 11229
     }
 ]

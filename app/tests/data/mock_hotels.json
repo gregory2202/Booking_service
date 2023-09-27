@@ -1,23 +1,23 @@
 [
     {
         "name": "Гранд Отель",
-        "location": "Москва, Центр",
+        "location": "Москва",
         "services": ["Бесплатный Wi-Fi", "Бассейн", "Ресторан"],
-        "rooms_quantity": 12,
+        "rooms_quantity": 3,
         "image_id": 12345
     },
     {
         "name": "Люкс Отель",
-        "location": "Санкт-Петербург, Невский проспект",
+        "location": "Москва, центр",
         "services": ["Бесплатный Wi-Fi", "Фитнес-центр"],
-        "rooms_quantity": 12,
+        "rooms_quantity": 6,
         "image_id": 54321
     },
     {
         "name": "Комфорт Отель",
         "location": "Казань, Кремлевская",
         "services": ["Бесплатный Wi-Fi", "Спа-салон"],
-        "rooms_quantity": 12,
+        "rooms_quantity": 3,
         "image_id": 11223
     }
 ]
