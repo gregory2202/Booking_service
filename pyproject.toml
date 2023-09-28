@@ -8,7 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.11"
 gunicorn = "^21.2.0"
-fastapi = {extras = ["all"], version = "^0.103.1"}
+fastapi = { extras = ["all"], version = "^0.103.1" }
 fastapi-cache2 = "^0.2.1"
 fastapi-mail = "^1.4.1"
 alembic = "^1.12.0"
@@ -29,6 +29,13 @@ httpx = "^0.25.0"
 pytest = "^7.4.2"
 pytest-asyncio = "^0.21.1"
 polyfactory = "^2.9.0"
+ruff = "^0.0.291"
+mypy = "^1.5.1"
+
+[tool.ruff]
+select = ["E", "F", "N", "I"]
+ignore = ["E501"]
+
 
 [build-system]
 requires = ["poetry-core"]
