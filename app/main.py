@@ -7,7 +7,7 @@ from redis import asyncio as aioredis
 from sqladmin import Admin
 
 from app.admin.auth import authentication_backend
-from app.admin.views import UsersAdmin, BookingsAdmin, HotelsAdmin, RoomsAdmin
+from app.admin.views import BookingsAdmin, HotelsAdmin, RoomsAdmin, UsersAdmin
 from app.config import settings
 from app.controllers.auth import router as router_auth
 from app.controllers.bookings import router as router_bookings

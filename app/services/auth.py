@@ -7,9 +7,9 @@ from pydantic import EmailStr
 
 from app.config import settings
 from app.exceptions.exceptions import (
+    CannotAddDataToDatabase,
     IncorrectEmailOrPasswordException,
     UserAlreadyExistsException,
-    CannotAddDataToDatabase
 )
 from app.interfaces.unit_of_work import IUnitOfWork
 from app.schemas.users import SUserAuth

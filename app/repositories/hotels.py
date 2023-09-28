@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import select, func, between, or_
+from sqlalchemy import between, func, or_, select
 
 from app.interfaces.repository import IHotelsRepository
 from app.models.bookings import Bookings

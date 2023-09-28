@@ -1,5 +1,10 @@
-from app.exceptions.exceptions import RoomCannotBeBooked, ReservationNotFoundError, InvalidDateError, \
-    ExcessiveBookingDurationError, RoomNotFoundError
+from app.exceptions.exceptions import (
+    ExcessiveBookingDurationError,
+    InvalidDateError,
+    ReservationNotFoundError,
+    RoomCannotBeBooked,
+    RoomNotFoundError,
+)
 from app.interfaces.unit_of_work import IUnitOfWork
 from app.models.users import Users
 from app.schemas.bookings import SNewBooking

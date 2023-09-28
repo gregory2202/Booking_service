@@ -1,5 +1,5 @@
-from fastapi import Request, Depends
-from jose import jwt, JWTError, ExpiredSignatureError
+from fastapi import Depends, Request
+from jose import ExpiredSignatureError, JWTError, jwt
 
 from app.config import settings
 from app.dependencies.unit_of_work import get_unit_of_work
@@ -7,7 +7,7 @@ from app.exceptions.exceptions import (
     IncorrectTokenFormatException,
     TokenAbsentException,
     TokenExpiredException,
-    UserIsNotPresentException
+    UserIsNotPresentException,
 )
 from app.interfaces.unit_of_work import IUnitOfWork
 

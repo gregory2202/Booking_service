@@ -1,6 +1,11 @@
 from abc import ABC, abstractmethod
 
-from app.interfaces.repository import IUsersRepository, IBookingsRepository, IHotelsRepository, IRoomsRepository
+from app.interfaces.repository import (
+    IBookingsRepository,
+    IHotelsRepository,
+    IRoomsRepository,
+    IUsersRepository,
+)
 
 
 class IUnitOfWork(ABC):

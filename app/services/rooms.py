@@ -1,6 +1,10 @@
 from datetime import date
 
-from app.exceptions.exceptions import HotelNotFoundError, InvalidDateError, ExcessiveBookingDurationError
+from app.exceptions.exceptions import (
+    ExcessiveBookingDurationError,
+    HotelNotFoundError,
+    InvalidDateError,
+)
 from app.interfaces.unit_of_work import IUnitOfWork
 
 

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Response, Depends
+from fastapi import APIRouter, Depends, Response
 
 from app.dependencies.services import get_auth_services
 from app.schemas.auth import LoginResponse, RegisterLogoutResponse

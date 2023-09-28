@@ -1,7 +1,11 @@
 from datetime import date
 
-from app.exceptions.exceptions import InvalidDateError, ExcessiveBookingDurationError, HotelNotFoundError, \
-    LocationNotFoundError
+from app.exceptions.exceptions import (
+    ExcessiveBookingDurationError,
+    HotelNotFoundError,
+    InvalidDateError,
+    LocationNotFoundError,
+)
 from app.interfaces.unit_of_work import IUnitOfWork
 
 

@@ -1,7 +1,7 @@
 import asyncio
 from datetime import date
 
-from fastapi_mail import FastMail, MessageSchema, ConnectionConfig, MessageType
+from fastapi_mail import ConnectionConfig, FastMail, MessageSchema, MessageType
 from jinja2 import Template
 
 from app.config import settings

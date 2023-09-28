@@ -1,6 +1,6 @@
 from datetime import date
 
-from sqlalchemy import select, between, or_, insert
+from sqlalchemy import between, insert, or_, select
 
 from app.exceptions.exceptions import RoomFullyBooked, RoomNotFoundError
 from app.interfaces.repository import IBookingsRepository
