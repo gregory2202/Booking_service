@@ -6,7 +6,7 @@ from app.config import settings
 
 DB_PARAMS = {"poolclass": NullPool} if settings.MODE == "TEST" else {}
 
-engine = create_async_engine(settings.DATABASE_URL, **DB_PARAMS)
+engine = create_async_engine(settings.database_url, **DB_PARAMS)
 
 async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=False)
 

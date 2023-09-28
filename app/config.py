@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     DB_NAME: str
 
     @property
-    def DATABASE_URL(self):
+    def database_url(self):
         return f"postgresql+asyncpg://{self.DB_HOST}/{self.DB_NAME}"
 
     JWT_KEY: str
