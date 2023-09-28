@@ -32,10 +32,12 @@ polyfactory = "^2.9.0"
 ruff = "^0.0.291"
 mypy = "^1.5.1"
 
-[tool.ruff]
-select = ["E", "F", "N", "I"]
-ignore = ["E501"]
+[tool.mypy]
+strict = true
 
+[tool.ruff]
+select = ["E", "F", "N", "I", "ICN"]  # "ANN" - аннотации типов
+ignore = ["E501"]
 
 [build-system]
 requires = ["poetry-core"]

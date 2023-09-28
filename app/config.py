@@ -11,7 +11,7 @@ class Settings(BaseSettings):
     DB_NAME: str
 
     @property
-    def database_url(self):
+    def database_url(self) -> str:
         return f"postgresql+asyncpg://{self.DB_HOST}/{self.DB_NAME}"
 
     JWT_KEY: str
@@ -29,4 +29,4 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".test.env" if os.getenv("MODE") == "TEST" else ".env")
 
 
-settings = Settings()
+settings = Settings()  # type: ignore
