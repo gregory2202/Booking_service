@@ -29,6 +29,6 @@ class SNewBooking(BaseModel):
     date_to: date
 
 
-class SDeleteBooking(BaseModel):
+class SDeleteBookingResponse(BaseModel):
     message: str
     reservation_id: int

@@ -3,7 +3,7 @@ from fastapi import APIRouter, Depends
 from app.dependencies.auth import get_current_user
 from app.dependencies.services import get_bookings_services, get_email_services
 from app.models.users import Users
-from app.schemas.bookings import SBooking, SBookingInfo, SDeleteBooking, SNewBooking
+from app.schemas.bookings import SBooking, SBookingInfo, SDeleteBookingResponse, SNewBooking
 from app.services.bookings import BookingsServices
 from app.services.email import EmailServices
 
@@ -27,5 +27,5 @@ async def add_booking(new_booking: SNewBooking, bookings_services: BookingsServi
 
 @router.delete("/{booking_id}")
 async def remove_booking(booking_id: int, bookings_services: BookingsServices = Depends(get_bookings_services),
-                         user: Users = Depends(get_current_user)) -> SDeleteBooking:
+                         user: Users = Depends(get_current_user)) -> SDeleteBookingResponse:
     return await bookings_services.remove_booking(booking_id, user)

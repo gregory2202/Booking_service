@@ -9,4 +9,4 @@ class EmailServices:
     async def send_booking_confirmation_email(self, booking_id: int):
         async with self.unit_of_work as uow:
             booking_data = await uow.bookings_repository.find_data_for_mail(booking_id)
-            send_email.delay(**booking_data)
+            send_email.delay(**dict(booking_data))

@@ -12,7 +12,7 @@ from app.exceptions.exceptions import (
     UserAlreadyExistsException,
 )
 from app.interfaces.unit_of_work import IUnitOfWork
-from app.schemas.users import SUserAuth
+from app.schemas.auth import SUserLogin, SUserRegister
 
 pwd_context = CryptContext(schemes="bcrypt", deprecated="auto")
 
@@ -44,7 +44,7 @@ class AuthServices:
                 raise IncorrectEmailOrPasswordException
             return user
 
-    async def register_user(self, user_data: SUserAuth):
+    async def register_user(self, user_data: SUserRegister):
         async with self.unit_of_work as uow:
             existing_user = await uow.users_repository.find_one_or_none(email=user_data.email)
             if existing_user:
@@ -55,11 +55,11 @@ class AuthServices:
                 raise CannotAddDataToDatabase
             return {"message": "Регистрация успешно завершена"}
 
-    async def login_user(self, response: Response, user_data: SUserAuth):
+    async def login_user(self, response: Response, user_data: SUserLogin):
         user = await self.authenticate_user(user_data.email, user_data.password)
         access_token = self.create_access_token({"sub": str(user.id)})
         response.set_cookie("booking_access_token", access_token, httponly=True)
-        return {"access_token": access_token}
+        return {"message": "Успешный вход в систему", "access_token": access_token}
 
     @staticmethod
     async def logout_user(response: Response):
