@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from typing import AsyncGenerator
 
 from fastapi import FastAPI
 from fastapi_cache import FastAPICache
@@ -18,7 +19,7 @@ from app.database.database import engine
 
 # Настройка lifespan приложения
 @asynccontextmanager
-async def lifespan(application: FastAPI):
+async def lifespan(application: FastAPI) -> AsyncGenerator[None, None]:
     redis = aioredis.from_url(f"redis://{settings.REDIS_HOST}:{settings.REDIS_PORT}", encoding="utf8",
                               decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="cache")

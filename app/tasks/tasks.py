@@ -18,8 +18,8 @@ config = ConnectionConfig(MAIL_USERNAME=settings.MAIL_USERNAME,
                           VALIDATE_CERTS=False)
 
 
-@app_celery.task
-def send_email(email, hotel_name: str, room_name: str, date_from: date, date_to: date,
+@app_celery.task  # type: ignore
+def send_email(email: str, hotel_name: str, room_name: str, date_from: date, date_to: date,
                total_cost: int) -> None:
     data = {
         "email": email,

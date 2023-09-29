@@ -13,5 +13,5 @@ class Users(Base):
 
     bookings: Mapped["Bookings"] = relationship(back_populates="user")  # type: ignore  # noqa
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Пользователь {self.email}"

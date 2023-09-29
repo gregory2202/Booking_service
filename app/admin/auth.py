@@ -11,7 +11,7 @@ from app.exceptions.exceptions import AccessException
 auth_services = get_auth_services(unit_of_work=get_unit_of_work())
 
 
-class AdminAuth(AuthenticationBackend):
+class AdminAuth(AuthenticationBackend):  # type: ignore
     async def login(self, request: Request) -> bool:
         form = await request.form()
         email, password = form["username"], form["password"]
@@ -34,6 +34,7 @@ class AdminAuth(AuthenticationBackend):
         user = await get_current_user(unit_of_work=get_unit_of_work(), token=token)
         if user.role not in ("admin", "dev"):
             raise AccessException
+        return None
 
 
 authentication_backend = AdminAuth(secret_key=settings.JWT_KEY)

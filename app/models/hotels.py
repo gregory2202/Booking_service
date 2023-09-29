@@ -16,5 +16,5 @@ class Hotels(Base):
 
     rooms: Mapped[list["Rooms"]] = relationship(back_populates="hotel")  # type: ignore  # noqa
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Отель {self.name} {self.location[:30]}"

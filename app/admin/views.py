@@ -6,7 +6,7 @@ from app.models.rooms import Rooms
 from app.models.users import Users
 
 
-class UsersAdmin(ModelView, model=Users):
+class UsersAdmin(ModelView, model=Users):  # type: ignore
     name = "Пользователь"
     name_plural = "Пользователи"
     icon = "fa-solid fa-users"
@@ -19,7 +19,7 @@ class UsersAdmin(ModelView, model=Users):
     can_delete = False
 
 
-class BookingsAdmin(ModelView, model=Bookings):
+class BookingsAdmin(ModelView, model=Bookings):  # type: ignore
     name = "Бронь"
     name_plural = "Бронирования"
     icon = "fa-solid fa-book"
@@ -35,7 +35,7 @@ class BookingsAdmin(ModelView, model=Bookings):
     page_size = 25
 
 
-class HotelsAdmin(ModelView, model=Hotels):
+class HotelsAdmin(ModelView, model=Hotels):  # type: ignore
     name = "Отель"
     name_plural = "Отели"
     icon = "fa-solid fa-hotel"
@@ -49,7 +49,7 @@ class HotelsAdmin(ModelView, model=Hotels):
     page_size = 25
 
 
-class RoomsAdmin(ModelView, model=Rooms):
+class RoomsAdmin(ModelView, model=Rooms):  # type: ignore
     name = "Номер"
     name_plural = "Номера"
     icon = "fa-solid fa-bed"

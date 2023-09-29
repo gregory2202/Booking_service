@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from types import TracebackType
 
 from app.interfaces.repository import (
     IBookingsRepository,
@@ -19,13 +20,14 @@ class IUnitOfWork(ABC):
         raise NotImplementedError
 
     @abstractmethod
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(self, exc_type: BaseException | None, exc_val: BaseException | None,
+                        exc_tb: TracebackType | None) -> bool:
         raise NotImplementedError
 
     @abstractmethod
-    async def commit(self):
+    async def commit(self) -> None:
         raise NotImplementedError
 
     @abstractmethod
-    async def rollback(self):
+    async def rollback(self) -> None:
         raise NotImplementedError
