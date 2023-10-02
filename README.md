@@ -1,80 +1,73 @@
-# Сервис Бронирования Отелей
+# Hotel Booking Service
 
-Данный проект был разработан в рамках изучения веб-разработки на Python с использованием современных
-инструментов и практик. Сервис предоставляет функциональность для регистрации и аутентификации пользователей, а также
-поиска и бронирования отелей.
+This project is developed in Python, utilizing modern tools and practices. The service offers functionality for user
+registration and authentication, as well as searching and booking hotels.
 
-## 🛠 Технологии
+## 🛠 Technologies
 
-- **Python**: язык программирования.
-- **FastAPI**: современный, быстрый веб-фреймворк, который позволяет быстро создавать надежные веб-приложения.
-- **Pydantic & SQLAlchemy**: мощные инструменты для работы с данными, обеспечивающие валидацию и взаимодействие с базами
-  данных.
-- **PostgreSQL**: объектно-реляционная система управления базами данных. Используется в проекте в качестве основной базы
-  данных.
-- **Redis**: система управления базами данных с открытым исходным кодом, используется для кеширования и ускорения
-  времени ответа сервера.
-- **Celery**: платформа для асинхронного выполнения задач, особенно полезная для обработки задач в фоновом режиме.
-- **Docker**: платформа для создания, развертывания и запуска приложений в контейнерах.
-- **PyTest**: инструмент для тестирования на Python, который предлагает удобный синтаксис для написания тестов.
-- **Архитектурные паттерны**: проект основан на паттернах **Repository** и **Unit of Work**, что обеспечивает гибкость и
-  надежность при работе с данными.
+- **Python**: Programming language.
+- **FastAPI**: A modern, fast web framework for building reliable web applications swiftly.
+- **Pydantic & SQLAlchemy**: Powerful tools for data handling, offering validation and database interaction.
+- **PostgreSQL**: An object-relational database management system, used as the primary database in this project.
+- **Redis**: An open-source database management system, used for caching and speeding up server response time.
+- **Celery**: A platform for asynchronous task execution, particularly useful for processing background tasks.
+- **Docker**: A platform for building, deploying, and running applications in containers.
+- **PyTest**: A Python testing tool, offering convenient syntax for writing tests.
+- **Architectural Patterns**: The project is based on the **Repository** and **Unit of Work** patterns, ensuring
+  flexibility and reliability in data handling.
 
-## Основные возможности
+## Key Features
 
-- **Аутентификация**: безопасная регистрация, вход и выход из системы.
-- **Контроль доступа на основе ролей**: пользователям могут быть присвоены различные роли.
-- **Поиск отеля**: удобный выбор отеля по локации, датам прибытия и отъезда.
-- **Детальная информация**: каждый отель снабжен описанием, фотографиями и информацией о доступных комнатах.
-- **Отправка Email**: реализована автоматическая отправка писем через Celery при бронировании, чтобы уведомить
-  пользователя.
+- **Authentication**: Secure registration, login, and logout.
+- **Role-Based Access Control**: Users can be assigned different roles.
+- **Hotel Search**: Easy hotel selection by location, check-in, and check-out dates.
+- **Detailed Information**: Each hotel comes with a description, photos, and information about available rooms.
+- **Email Dispatch**: Implemented automated email sending via Celery upon booking to notify the user.
 
 ## API
 
-| Метод | Функция                         | URL                      |
-|-------|---------------------------------|--------------------------|
-| POST  | register_user                   | /auth/register           |
-| POST  | login_user                      | /auth/login              |
-| POST  | logout_user                     | /auth/logout             |
-| GET   | read_users_me                   | /users/me                |
-| GET   | get_bookings                    | /bookings                |
-| POST  | add_booking                     | /bookings                |
-| POST  | remove_booking                  | /bookings/{booking_id}   |
-| GET   | get_hotels_by_location_and_time | /hotels/{location}       |
-| GET   | get_hotel_by_id                 | /hotels/id/{hotel_id}    |
-| GET   | get_rooms_by_date               | /hotels/{hotel_id}/rooms |
+| Method | Function                        | URL                      |
+|--------|---------------------------------|--------------------------|
+| POST   | register_user                   | /auth/register           |
+| POST   | login_user                      | /auth/login              |
+| POST   | logout_user                     | /auth/logout             |
+| GET    | read_users_me                   | /users/me                |
+| GET    | get_bookings                    | /bookings                |
+| POST   | add_booking                     | /bookings                |
+| DELETE | remove_booking                  | /bookings/{booking_id}   |
+| GET    | get_hotels_by_location_and_time | /hotels/{location}       |
+| GET    | get_hotel_by_id                 | /hotels/id/{hotel_id}    |
+| GET    | get_rooms_by_date               | /hotels/{hotel_id}/rooms |
 
-## Административная панель
+## Admin Panel
 
-Администраторы и разработчики могут работать с
-базой данных через удобный web - интерфейс, доступной по пути `/admin` после запуска
-сервера.
+Administrators and developers can interact with the database through a convenient web interface accessible at `/admin`
+after the server is launched.
 
-## Документация
+## Documentation
 
-Пользователи и разработчики могут ознакомиться с полной документацией API, доступной по пути `/docs` после запуска
-сервера.
+Users and developers can access the complete API documentation available at `/docs` after the server startup.
 
-## 🚀 Запуск приложения
+## 🚀 Application Launch
 
-Для запуска FastAPI используется веб-сервер uvicorn. Команда для запуска выглядит так:
+The uvicorn web server is used to run FastAPI. The launch command is as follows:
 
 ```
 uvicorn app.main:app --reload
 ```  
 
-Ее необходимо запускать в командной строке, обязательно находясь в корневой директории проекта.
+This command should be run from the project's root directory.
 
 ### Celery & Flower
 
-Для запуска Celery используется команда
+To launch Celery, use the command:
 
 ```
 celery --app=app.tasks.celery_settings:app_celery worker -l INFO -P solo
 ```
 
-Обратите внимание, что `-P solo` используется только на Windows, так как у Celery есть проблемы с работой на Windows.  
-Для запуска Flower используется команда
+Note that `-P solo` is used only on Windows as Celery has issues operating on Windows.  
+For launching Flower, use:
 
 ```
 celery --app=app.tasks.celery_settings:app_celery flower
@@ -82,28 +75,26 @@ celery --app=app.tasks.celery_settings:app_celery flower
 
 ### Dockerfile
 
-Для запуска веб-сервера (FastAPI) внутри контейнера необходимо раскомментировать код внутри Dockerfile и иметь уже
-запущенный экземпляр PostgreSQL на компьютере.
-Код для запуска Dockerfile:
+To run the web server (FastAPI) inside a container, uncomment the code inside the Dockerfile and have a PostgreSQL
+instance running on your computer. To run the Dockerfile, use:
 
 ```
 docker build .
 ```  
 
-Команда также запускается из корневой директории, в которой лежит файл Dockerfile.
+This command is also run from the root directory where the Dockerfile is located.
 
-### Docker compose
+### Docker Compose
 
-Для запуска всех сервисов (БД, Redis, веб-сервер (FastAPI), Celery, Flower, Grafana, Prometheus) необходимо использовать
-файл docker-compose.yml и команды
+To launch all services (DB, Redis, web server (FastAPI), Celery, Flower, Grafana, Prometheus), use the
+docker-compose.yml file and commands:
 
 ```
 docker compose build
 docker compose up
 ```
 
-Причем `build` команду нужно запускать, только если вы меняли что-то внутри Dockerfile, то есть меняли логику
-составления образа.
+The `build` command should only be run if you have modified the Dockerfile, i.e., changed the image building logic.
 
 ---
 &copy; 2023 Hotel Booking Service
